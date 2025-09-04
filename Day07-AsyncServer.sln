@@ -5,13 +5,17 @@ VisualStudioVersion = 16.0.33027.164
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServerTest", "ServerTest\ServerTest.vcxproj", "{2EB31542-DF9F-44AD-B131-4AA5DD8EB83B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AsynServer", "AsynServer\AsynServer.vcxproj", "{25F82A1B-F6BF-404E-8F33-7FB2F91501B5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AsyncServer", "AsynServer\AsynServer.vcxproj", "{25F82A1B-F6BF-404E-8F33-7FB2F91501B5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SyncClient", "SyncClient\SyncClient.vcxproj", "{79CC09F8-65FF-4B19-8D98-275914FDF56A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestClient", "TestClient\TestClient.vcxproj", "{EAC4104F-9A9E-44BB-AA2A-B21FD5A1F49A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReadAtLeastServer", "ReadAtLeastServer\ReadAtLeastServer.vcxproj", "{7C56A0FC-954E-4FD0-946E-787D466B6551}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JsonServer", "JsonServer\JsonServer.vcxproj", "{30C8C1B9-428E-4DBF-9D4D-A5BAADC6E48D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JsonClient", "JsonClient\JsonClient.vcxproj", "{6FAAD83A-D66E-437D-A1B7-60C296FEAC97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +65,22 @@ Global
 		{7C56A0FC-954E-4FD0-946E-787D466B6551}.Release|x64.Build.0 = Release|x64
 		{7C56A0FC-954E-4FD0-946E-787D466B6551}.Release|x86.ActiveCfg = Release|Win32
 		{7C56A0FC-954E-4FD0-946E-787D466B6551}.Release|x86.Build.0 = Release|Win32
+		{30C8C1B9-428E-4DBF-9D4D-A5BAADC6E48D}.Debug|x64.ActiveCfg = Debug|x64
+		{30C8C1B9-428E-4DBF-9D4D-A5BAADC6E48D}.Debug|x64.Build.0 = Debug|x64
+		{30C8C1B9-428E-4DBF-9D4D-A5BAADC6E48D}.Debug|x86.ActiveCfg = Debug|Win32
+		{30C8C1B9-428E-4DBF-9D4D-A5BAADC6E48D}.Debug|x86.Build.0 = Debug|Win32
+		{30C8C1B9-428E-4DBF-9D4D-A5BAADC6E48D}.Release|x64.ActiveCfg = Release|x64
+		{30C8C1B9-428E-4DBF-9D4D-A5BAADC6E48D}.Release|x64.Build.0 = Release|x64
+		{30C8C1B9-428E-4DBF-9D4D-A5BAADC6E48D}.Release|x86.ActiveCfg = Release|Win32
+		{30C8C1B9-428E-4DBF-9D4D-A5BAADC6E48D}.Release|x86.Build.0 = Release|Win32
+		{6FAAD83A-D66E-437D-A1B7-60C296FEAC97}.Debug|x64.ActiveCfg = Debug|x64
+		{6FAAD83A-D66E-437D-A1B7-60C296FEAC97}.Debug|x64.Build.0 = Debug|x64
+		{6FAAD83A-D66E-437D-A1B7-60C296FEAC97}.Debug|x86.ActiveCfg = Debug|Win32
+		{6FAAD83A-D66E-437D-A1B7-60C296FEAC97}.Debug|x86.Build.0 = Debug|Win32
+		{6FAAD83A-D66E-437D-A1B7-60C296FEAC97}.Release|x64.ActiveCfg = Release|x64
+		{6FAAD83A-D66E-437D-A1B7-60C296FEAC97}.Release|x64.Build.0 = Release|x64
+		{6FAAD83A-D66E-437D-A1B7-60C296FEAC97}.Release|x86.ActiveCfg = Release|Win32
+		{6FAAD83A-D66E-437D-A1B7-60C296FEAC97}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -95,8 +95,9 @@ void CSession::HandleReadMsg(const boost::system::error_code& error, size_t  byt
 		Send(_recv_msg_node->_data, _recv_msg_node->_total_len);
 		//再次接收头部数据
 		_recv_head_node->Clear();
-		boost::asio::async_read(_socket, boost::asio::buffer(_recv_head_node->_data, HEAD_LENGTH), std::bind(&CSession::HandleReadHead, this,
-			std::placeholders::_1, std::placeholders::_2, SharedSelf()));
+		boost::asio::async_read(_socket, boost::asio::buffer(_recv_head_node->_data, HEAD_LENGTH), 
+			std::bind(&CSession::HandleReadHead, this,std::placeholders::_1, 
+				std::placeholders::_2, SharedSelf()));
 	}
 	else {
 		std::cout << "handle read failed, error is " << error.what() << endl;
