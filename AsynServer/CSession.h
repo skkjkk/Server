@@ -19,7 +19,7 @@ class MsgNode
 {
 	friend class CSession;
 public:
-	//构造函数
+	//构造函数,用于发送信息
 	MsgNode(char* msg, short max_len) : _total_len(max_len + HEAD_LENGTH), _cur_len(0) 
 	{
 		_data = new char[_total_len + 1]();//分配内存
