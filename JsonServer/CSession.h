@@ -41,3 +41,15 @@ private:
 	//收到的头部结构
 	std::shared_ptr<MsgNode> _recv_head_node;
 };
+
+//封装了会话对象和消息数据，作为从网络层传递到业务层的数据包装器
+class LogicNode
+{
+	friend class LogicSystem;
+public:
+	LogicNode(std::shared_ptr<CSession>, std::shared_ptr<RecvNode>);
+private:
+	std::shared_ptr<CSession> _session;	//会话引用，用于回复消息
+	std::shared_ptr<RecvNode> _recvnode;//接收到的消息数据
+};
+

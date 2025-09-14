@@ -27,6 +27,15 @@
     <ClInclude Include="MsgNode.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicSystem.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="AsioIOServicePool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CServer.cpp">
@@ -39,6 +48,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MsgNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="AsioIOServicePool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

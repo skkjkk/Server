@@ -23,15 +23,19 @@ public:
     short _total_len;
     char* _data;
 };
+
 class RecvNode :public MsgNode {
 public:
     RecvNode(short max_len, short msg_id);
+    short GetMsgId() const;
 private:
     short _msg_id;
 };
+
 class SendNode :public MsgNode {
 public:
     SendNode(const char* msg, short max_len, short msg_id);
+    short GetMsgId() const;
 private:
     short _msg_id;
 };

@@ -32,5 +32,8 @@
     <ClInclude Include="CServer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="const.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,3 +6,9 @@
 #define HEAD_ID_LEN 2
 #define HEAD_DATA_LEN 2
 #define HEAD_TOTAL_LEN 4
+
+
+enum MSG_IDS
+{
+	MSG_HELLO_WORD = 1001
+};

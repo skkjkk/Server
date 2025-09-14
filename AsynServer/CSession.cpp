@@ -43,13 +43,14 @@ void CSession::Close()
 }
 
 void CSession::Send(char* msg, int max_length) {
-	bool pending = false;
 	std::lock_guard<std::mutex> lock(_send_lock);
-	if (_send_que.size() > 0) {
-		pending = true;
+	int send_que_size = _send_que.size();
+	if (send_que_size > MAX_SENDQUE) {
+		cout << "session: " << _uuid << " send que fulled, size is " << MAX_SENDQUE << endl;
+		return;
 	}
 	_send_que.push(make_shared<MsgNode>(msg, max_length));
-	if (pending) {
+	if (send_que_size > 0) {
 		return;
 	}
 	auto& msgnode = _send_que.front();

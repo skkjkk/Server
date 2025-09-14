@@ -5,7 +5,7 @@
 #include <json/json.h>
 #include <json/value.h>
 #include <json/reader.h>
-
+#include "LogicSystem.h"
 CSession::CSession(boost::asio::io_context& io_context, CServer* server) :
 	_socket(io_context), _server(server), _b_close(false), _b_head_parse(false) {
 	boost::uuids::uuid  a_uuid = boost::uuids::random_generator()();
@@ -26,15 +26,16 @@ std::string& CSession::GetUuid() {
 
 void CSession::Start() {
 	::memset(_data, 0, MAX_LENGTH);
-	_socket.async_read_some(boost::asio::buffer(_data, MAX_LENGTH), std::bind(&CSession::HandleRead, this,
-		std::placeholders::_1, std::placeholders::_2, SharedSelf()));
+	_socket.async_read_some(boost::asio::buffer(_data, MAX_LENGTH), 
+		std::bind(&CSession::HandleRead, this,std::placeholders::_1, 
+			std::placeholders::_2, SharedSelf()));
 }
 
 void CSession::Send(std::string msg, short msg_id) {
 	std::lock_guard<std::mutex> lock(_send_lock);
 	int send_que_size = _send_que.size();
 	if (send_que_size > MAX_SENDQUE) {
-		std::cout << "session: " << _uuid << " send que fulled, size is " << MAX_SENDQUE << endl;
+		std::cout << "session: " << _uuid << " send queue fulled, size is " << MAX_SENDQUE << endl;
 		return;
 	}
 
@@ -111,7 +112,8 @@ void CSession::HandleRead(const boost::system::error_code& error, size_t  bytes_
 						_recv_head_node->_cur_len += bytes_transferred;
 						::memset(_data, 0, MAX_LENGTH);
 						_socket.async_read_some(boost::asio::buffer(_data, MAX_LENGTH),
-							std::bind(&CSession::HandleRead, this, std::placeholders::_1, std::placeholders::_2, shared_self));
+							std::bind(&CSession::HandleRead, this, std::placeholders::_1, 
+								std::placeholders::_2, shared_self));
 						return;
 					}
 					//收到的数据比头部多
@@ -128,10 +130,10 @@ void CSession::HandleRead(const boost::system::error_code& error, size_t  bytes_
 					msg_id = boost::asio::detail::socket_ops::network_to_host_short(msg_id);
 					std::cout << "msg_id is " << msg_id << endl;
 
-					//id不合法
-					if (msg_id > HEAD_ID_LEN)
+					//id 不合法
+					if (msg_id != MSG_HELLO_WORD)
 					{
-						std::cout << "invalid msg id is " << std::endl;
+						std::cout << "invalid msg id is " << msg_id << std::endl;
 						_server->ClearSession(_uuid);
 						return;
 					}
@@ -157,7 +159,8 @@ void CSession::HandleRead(const boost::system::error_code& error, size_t  bytes_
 						_recv_msg_node->_cur_len += bytes_transferred;
 						::memset(_data, 0, MAX_LENGTH);
 						_socket.async_read_some(boost::asio::buffer(_data, MAX_LENGTH),
-							std::bind(&CSession::HandleRead, this, std::placeholders::_1, std::placeholders::_2, shared_self));
+							std::bind(&CSession::HandleRead, this, std::placeholders::_1, 
+								std::placeholders::_2, shared_self));
 						//头部处理完成
 						_b_head_parse = true;
 						return;
@@ -170,14 +173,7 @@ void CSession::HandleRead(const boost::system::error_code& error, size_t  bytes_
 					_recv_msg_node->_data[_recv_msg_node->_total_len] = '\0';
 					//cout << "receive data is " << _recv_msg_node->_data << endl;
 					//此处可以调用Send发送测试
-					Json::Reader reader;
-					Json::Value root;
-					reader.parse(std::string(_recv_msg_node->_data, _recv_msg_node->_total_len), root);
-					std::cout << "recevie msg id  is " << root["id"].asInt() << " msg data is "
-						<< root["data"].asString() << endl;
-					root["data"] = "server has received msg, msg data is " + root["data"].asString();
-					std::string return_str = root.toStyledString();
-					Send(return_str, root["id"].asInt());
+					LogicSystem::GetInstance()->PostMsgToQue(make_shared<LogicNode>(shared_from_this(), _recv_msg_node));
 					//继续轮询剩余未处理数据
 					_b_head_parse = false;
 					_recv_head_node->Clear();
@@ -206,16 +202,7 @@ void CSession::HandleRead(const boost::system::error_code& error, size_t  bytes_
 				bytes_transferred -= remain_msg;
 				copy_len += remain_msg;
 				_recv_msg_node->_data[_recv_msg_node->_total_len] = '\0';
-				//cout << "receive data is " << _recv_msg_node->_data << endl;
-				//此处可以调用Send发送测试
-				Json::Reader reader;
-				Json::Value root;
-				reader.parse(std::string(_recv_msg_node->_data, _recv_msg_node->_total_len), root);
-				std::cout << "recevie msg id  is " << root["id"].asInt() << " msg data is "
-					<< root["data"].asString() << endl;
-				root["data"] = "server has received msg, msg data is " + root["data"].asString();
-				std::string return_str = root.toStyledString();
-				Send(return_str,root["id"].asInt());
+				LogicSystem::GetInstance()->PostMsgToQue(make_shared<LogicNode>(shared_from_this(), _recv_msg_node));
 				//继续轮询剩余未处理数据
 				_b_head_parse = false;
 				_recv_head_node->Clear();
@@ -237,4 +224,10 @@ void CSession::HandleRead(const boost::system::error_code& error, size_t  bytes_
 	catch (std::exception& e) {
 		std::cout << "Exception code is " << e.what() << endl;
 	}
+}
+
+LogicNode::LogicNode(std::shared_ptr<CSession> session, std::shared_ptr<RecvNode> recvnode)
+	: _session(session),_recvnode(recvnode)
+{
+
 }
