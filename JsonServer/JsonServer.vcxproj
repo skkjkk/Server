@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AsioIOServicePool.h" />
+    <ClInclude Include="AsioThreadPool.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="CServer.h" />
     <ClInclude Include="CSession.h" />
@@ -153,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AsioIOServicePool.cpp" />
+    <ClCompile Include="AsioThreadPool.cpp" />
     <ClCompile Include="CServer.cpp" />
     <ClCompile Include="CSession.cpp" />
     <ClCompile Include="JsonServer.cpp" />

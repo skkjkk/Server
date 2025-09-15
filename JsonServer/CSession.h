@@ -2,6 +2,8 @@
 #include <boost/asio.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_generators.hpp>
+#include <boost/asio/strand.hpp>
+#include <boost/asio/io_context.hpp>
 #include <queue>
 #include <mutex>
 #include <memory>

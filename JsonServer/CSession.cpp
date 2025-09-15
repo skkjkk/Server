@@ -6,8 +6,12 @@
 #include <json/value.h>
 #include <json/reader.h>
 #include "LogicSystem.h"
-CSession::CSession(boost::asio::io_context& io_context, CServer* server) :
-	_socket(io_context), _server(server), _b_close(false), _b_head_parse(false) {
+CSession::CSession(boost::asio::io_context& io_context, CServer* server) 
+	: _socket(io_context),
+	_server(server),
+	_b_close(false),
+	_b_head_parse(false)
+{
 	boost::uuids::uuid  a_uuid = boost::uuids::random_generator()();
 	_uuid = boost::uuids::to_string(a_uuid);
 	_recv_head_node = make_shared<MsgNode>(HEAD_TOTAL_LEN);

@@ -76,7 +76,7 @@ int main()
 			}
 			}
 		);
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
 
 	for (auto &t:vec_threads)
@@ -86,5 +86,7 @@ int main()
 	auto end = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 	std::cout << "Time spent:" << duration.count() << "microseconds" << std::endl;
+	getchar();
+
 	return 0;
 }
